@@ -5,6 +5,7 @@ class PersonasController < ApplicationController
   # GET /personas.json
   def index
     @personas = Persona.all
+    render json: @personas
   end
 
   # GET /personas/1
