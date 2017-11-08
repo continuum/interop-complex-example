@@ -30,7 +30,7 @@ class PersonasController < ApplicationController
     respond_to do |format|
       if @persona.save
         format.html { redirect_to @persona, notice: 'Persona correctamente creada.' }
-        format.json { render :show, status: :created, location: @persona }
+        format.json { render json: @persona, status: :created }
       else
         format.html { render :new }
         format.json { render json: @persona.errors, status: :unprocessable_entity }
@@ -70,6 +70,6 @@ class PersonasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def persona_params
-      params.require(:persona).permit(:nombres, :apellidos)
+      params.require(:persona).permit(:nombres, :apellidos, :email, telefonos_attributes: [:numero, :persona_id])
     end
 end

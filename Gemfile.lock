@@ -41,6 +41,7 @@ GEM
     arel (7.1.4)
     bindex (0.5.0)
     builder (3.2.3)
+    byebug (9.1.0)
     concurrent-ruby (1.0.5)
     concurrent-ruby (1.0.5-java)
     crass (1.0.2)
@@ -163,6 +164,7 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
+  byebug
   jbuilder (~> 2.0)
   jquery-rails
   listen (~> 3.0.5)
@@ -180,4 +182,4 @@ RUBY VERSION
    ruby 2.3.4p301
 
 BUNDLED WITH
-   1.15.4
+   1.16.0

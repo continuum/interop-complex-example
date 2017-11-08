@@ -1,6 +1,8 @@
 class Persona < ApplicationRecord
-  has_many :telefonos
+  has_many :telefonos, inverse_of: :persona
   accepts_nested_attributes_for :telefonos
+
+  validates :nombres, :apellidos, presence: true
 
   def as_json(options={})
     {
