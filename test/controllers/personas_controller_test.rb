@@ -14,10 +14,18 @@ class PersonasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show a list of persons" do
-    Persona.create(nombres: "Jose", apellidos: "Altuve")
     get personas_url
     assert_response :success
     assert_match "Jose", @response.body
+  end
+
+
+  test "should delete person" do
+    assert_difference('Persona.count', -1) do
+      delete persona_url(Persona.last)
+    end
+    assert_response :success
+    assert_match "Persona eliminada correctamente", @response.body
   end
 
 end

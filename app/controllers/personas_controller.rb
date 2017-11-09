@@ -58,7 +58,7 @@ class PersonasController < ApplicationController
     @persona.destroy
     respond_to do |format|
       format.html { redirect_to personas_url, notice: 'Persona eliminada correctamente.' }
-      format.json { head :no_content }
+      format.json { render json: {respuesta: 'Persona eliminada correctamente.'} }
     end
   end
 
