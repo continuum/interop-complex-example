@@ -4,6 +4,8 @@ class Persona < ApplicationRecord
 
   validates :nombres, :apellidos, presence: true
 
+  STATIC_PERSON_NAMES = ["Juan Andres", "Andres de Jesus", "Pedro Jose", "Jose Luis"]
+
   def as_json(options={})
     {
         persona: {

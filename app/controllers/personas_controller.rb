@@ -55,7 +55,7 @@ class PersonasController < ApplicationController
   # DELETE /personas/1
   # DELETE /personas/1.json
   def destroy
-    @persona.destroy
+    @persona.destroy unless Persona::STATIC_PERSON_NAMES.include?(@persona.nombres)
     respond_to do |format|
       format.html { redirect_to personas_url, notice: 'Persona eliminada correctamente.' }
       format.json { render json: {respuesta: 'Persona eliminada correctamente.'} }

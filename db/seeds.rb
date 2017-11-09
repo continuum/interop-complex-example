@@ -10,22 +10,22 @@
 
 persons = [
   {
-    nombres: "Juan Andres",
+    nombres: Persona::STATIC_PERSON_NAMES[0],
     apellidos: "Perez Cortez",
     email: "juan@dominio.com"
   },
   {
-    nombres: "Andres de Jesus",
+    nombres: Persona::STATIC_PERSON_NAMES[1],
     apellidos: "Bello López",
     email: "andres@dominio.com"
   },
   {
-    nombres: "Pedro Jose",
+    nombres: Persona::STATIC_PERSON_NAMES[2],
     apellidos: "Gonzalez Alvarado",
     email: "pedro@dominio.com"
   },
   {
-    nombres: "Jose Luis",
+    nombres: Persona::STATIC_PERSON_NAMES[3],
     apellidos: "Rodriguez Carrera"
   }
 ]
