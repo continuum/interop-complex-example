@@ -19,6 +19,7 @@ Things you may want to cover:
 
 For development you should create the user and database required by the app
 (See config/database.yml)
+
 If using Ubuntu:
 
 
