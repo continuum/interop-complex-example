@@ -15,7 +15,19 @@ Things you may want to cover:
 
 * Database creation
 
-* Database initialization
+* Database initialization =>
+
+For development you should create the user and database required by the app
+(See config/database.yml)
+If using Ubuntu:
+
+
+
+    $ sudo su - postgres 
+    @postgres@hostname: ~$ psql -U postgres
+    @postgres=# CREATE USER ${NAME_OF_THE_USER} WITH LOGIN ENCRYPTED PASSWORD ${PASSWORD_OF_THE_USER}
+    @postgres=# CREATE DATABASE ${NAME_OF_DATABASE} WITH OWNER ${NAME_OF_THE_USER}
+
 
 * How to run the test suite
 
