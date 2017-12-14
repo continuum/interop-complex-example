@@ -2,8 +2,6 @@ class TraceabilityController < ApplicationController
   include TarGenerator
 
   def logs
-   # debugger
-    p "hello"
     '
     [2016-10-25T08:15:30-04:00] 20.30.40.50 apis.digital.gob.cl "GET /misc/instituciones/AD015" 200 "BB001 e0592e56-76c3-11e7-814c-0401beb96201"
     '
@@ -25,7 +23,7 @@ class TraceabilityController < ApplicationController
     transacción se debe consultar la Guía de Manejo de OIDs.
 '
 
-    send_tarred_and_gzipped_logs_between_dates("2017-12-12", "2018-02-02")
+    send_tarred_and_gzipped_logs_between_dates(params[:inicio], params[:fin])
   end
 
   def send_tarred_and_gzipped_logs_between_dates(start_date, end_date)
@@ -37,6 +35,7 @@ class TraceabilityController < ApplicationController
              .reduce(Gem::Package::TarWriter.new(tar_container)) do |tarfile, (date,records)|
                fill_tar_with_logfiles(tarfile, [date, records], tar_container)
              end
+
     send_file(
               gzip(tar_container),
               disposition: :attachment,
@@ -48,8 +47,19 @@ class TraceabilityController < ApplicationController
   end
 
   def name_zipfile(start_date, end_date)
-    initial_date_string =  Time.zone.parse(start_date).strftime("%Y-%m-%d")
-    final_date_string = Time.zone.parse(end_date).strftime("%Y-%m-%d")
+    initial_date_string = 
+      unless [start_date, end_date].include? nil 
+        Time.zone.parse(start_date).strftime("%Y-%m-%d")
+      else
+        (Time.zone.now - 1.day).strftime("%Y-%m-%d")
+      end
+
+    final_date_string = 
+      unless [start_date ,end_date].include? nil
+        Time.zone.parse(end_date).strftime("%Y-%m-%d")
+      else
+        Time.zone.now.strftime("%Y-%m-%d")
+      end
     "instituciones-#{initial_date_string}-#{final_date_string}.tar.gz"
   end
 

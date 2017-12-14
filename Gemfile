@@ -27,6 +27,9 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
+  # Create seeds from stuff in your database
+  # https://github.com/rroblak/seed_dump
+  gem 'seed_dump'
 end
 
 gem 'byebug'
