@@ -2,27 +2,6 @@ class TraceabilityController < ApplicationController
   include TarGenerator
 
   def logs
-    '
-    [2016-10-25T08:15:30-04:00] 20.30.40.50 apis.digital.gob.cl "GET /misc/instituciones/AD015" 200 "BB001 e0592e56-76c3-11e7-814c-0401beb96201"
-    '
-
-'
-    Fecha y Hora según el estándar definido en el punto 2.
-    ● IP del Host remoto
-    ● Servicio de interoperabilidad consultado.
-    ● Método HTTP y URI solicitada.
-    ● Código HTTP de respuesta según lo establecido en el RFC 2616, sección 10:
-    ○ 2XX​ es exitoso
-    ○ 3XX​ es una redirección
-    ○ 4XX​ es un error del cliente
-    ○ 5XX​ es un error del servidor
-    ● Código de la Institución consumidora de la información según el listado expuesto en el
-    siguiente recurso:
-    https://apis.digital.gob.cl/misc/instituciones/_search?size=900&pretty=true.
-    ● Identificador de la transacción en formato OID. Para generar el identificador de cada
-    transacción se debe consultar la Guía de Manejo de OIDs.
-'
-
     send_tarred_and_gzipped_logs_between_dates(params[:inicio], params[:fin])
   end
 
