@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102181200) do
+ActiveRecord::Schema.define(version: 20171212154923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,19 @@ ActiveRecord::Schema.define(version: 20171102181200) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["persona_id"], name: "index_telefonos_on_persona_id", using: :btree
+  end
+
+  create_table "trace_infos", force: :cascade do |t|
+    t.datetime "time"
+    t.string   "remote_host_ip"
+    t.string   "interop_service_requested"
+    t.string   "http_method"
+    t.string   "url"
+    t.string   "response_http_code"
+    t.string   "consumer_institution_code"
+    t.string   "oid_identifier"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end

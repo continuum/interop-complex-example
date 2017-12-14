@@ -44,3 +44,12 @@ Persona.create(persons)
 
 first = Persona.first.telefonos.create(first_phones)
 second = Persona.second.telefonos.create(second_phones)
+TraceInfo.create!([
+  {time: "2017-12-12 17:22:06", remote_host_ip: "127.0.0.1", interop_service_requested: "localhost", http_method: "GET", url: "http://localhost:3000/complex_example/monitor", response_http_code: "200", consumer_institution_code: "BB001", oid_identifier: "OIDOID"},
+  {time: "2017-12-12 17:22:20", remote_host_ip: "127.0.0.1", interop_service_requested: "localhost", http_method: "GET", url: "http://localhost:3000/complex_example/monitor", response_http_code: "200", consumer_institution_code: "BB001", oid_identifier: "OIDOID"},
+  {time: "2017-12-12 17:27:19", remote_host_ip: "127.0.0.1", interop_service_requested: "localhost", http_method: "GET", url: "http://localhost:3000/complex_example/monitor", response_http_code: "200", consumer_institution_code: "INFO NOT SENT", oid_identifier: "OIDOID"},
+  {time: "2017-12-13 13:28:34", remote_host_ip: "127.0.0.1", interop_service_requested: "localhost", http_method: "GET", url: "http://localhost:3000/complex_example/monitor", response_http_code: "200", consumer_institution_code: "INFO NOT SENT", oid_identifier: "OIDOID"},
+  {time: "2017-12-13 13:28:38", remote_host_ip: "127.0.0.1", interop_service_requested: "localhost", http_method: "GET", url: "http://localhost:3000/complex_example/monitor", response_http_code: "200", consumer_institution_code: "INFO NOT SENT", oid_identifier: "OIDOID"},
+  {time: "2017-12-13 13:30:57", remote_host_ip: "127.0.0.1", interop_service_requested: "localhost", http_method: "GET", url: "http://localhost:3000/complex_example/personas", response_http_code: "200", consumer_institution_code: "INFO NOT SENT", oid_identifier: "OIDOID"},
+  {time: "2017-12-13 13:31:05", remote_host_ip: "127.0.0.1", interop_service_requested: "localhost", http_method: "GET", url: "http://localhost:3000/complex_example/personas", response_http_code: "200", consumer_institution_code: "INFO NOT SENT", oid_identifier: "OIDOID"}
+])

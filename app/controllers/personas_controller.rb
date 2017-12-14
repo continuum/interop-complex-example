@@ -1,6 +1,11 @@
 class PersonasController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
+  include Tracer
+  
+  after_action do |controller|
+    trace(controller.request, controller.response)
+  end
   # GET /personas
   # GET /personas.json
   def index
