@@ -1,4 +1,6 @@
 class TraceabilityController < ApplicationController
+  include TarGenerator
+
   def logs
    # debugger
     p "hello"
@@ -27,16 +29,57 @@ class TraceabilityController < ApplicationController
   end
 
   def generate_logfile(start_date, end_date)
-    initial_date = Time.zone.parse(start_date).strftime("%Y-%m-%d")
-    final_date = Time.zone.parse(end_date).strftime("%Y-%m-%d")
-    records = TraceInfo.where("time >= ? AND time <= ?", initial_date, final_date)
-    logfile = 
-      records.reduce(Tempfile.new) do |file, record|
-        line = "[#{record.time}] #{record.remote_host_ip} #{record.interop_service_requested} #{record.http_method} #{record.url} #{record.response_http_code} #{record.consumer_institution_code} #{record.oid_identifier}\n"
-        file.tap { |tmp| tmp.write line }
-      end
-    send_file logfile, disposition: :attachment, filename: "logfile.txt"
-  ensure
-    logfile.close
+    initial_date = Time.zone.parse(start_date)
+   # initial_date_string = initial_date.strftime("%Y-%m-%d")
+
+    final_date = Time.zone.parse(end_date)
+   # final_date_string = final_date.strftime("%Y-%m-%d")
+
+   # all_dates_between = ((1.week.ago.to_date)..(Date.today)).to_a.map {|x| x.to_s :db }    
+    container = File.open(Tempfile.new, 'a')
+
+    tar = TraceInfo.where("time >= ? AND time <= ?", initial_date, final_date)
+                   .to_a
+                   .group_by { |record| record.time.strftime("%Y-%m-%d") }
+                   .each_pair
+                   .reduce(Gem::Package::TarWriter.new(container)) do |tarfile, (date, records)|
+                      # There's only one tarfile
+                      # each tarfile should have one logfile per day
+                      # and each logfile contains several dates
+                      begin
+                        logfile = 
+                          records.reduce(File.open(Tempfile.new, 'a')) do |log_tmpfile, record|
+                            line = "[#{record.time}] #{record.remote_host_ip} #{record.interop_service_requested} #{record.http_method} #{record.url} #{record.response_http_code} #{record.consumer_institution_code} #{record.oid_identifier}\n"
+                            log_tmpfile.tap { |file| file.write line }
+                            log_tmpfile.rewind
+                            log_tmpfile                    
+                          end
+                        add_to_tar(logfile, "instituciones-#{date}.log", tarfile, container)
+                        tarfile
+                      ensure
+                        logfile.close
+                        File.delete(logfile)
+                      end
+                   end
+    zip = gzip(container) 
+    send_file zip#container
+    ensure
+      container.close
   end
+
+  def create_logfile(log_tmpfile, record)
+
+  end
+
+
+#add_to_tar(tar, "somename")
+  #   records = TraceInfo.where("time >= ? AND time <= ?", initial_date, final_date).group("time")
+  #   logfile = 
+  #     records.reduce(Tempfile.new) do |file, record|
+  #       line = "[#{record.time}] #{record.remote_host_ip} #{record.interop_service_requested} #{record.http_method} #{record.url} #{record.response_http_code} #{record.consumer_institution_code} #{record.oid_identifier}\n"
+  #       file.tap { |tmp| tmp.write line }
+  #     end
+  #   send_file logfile, disposition: :attachment, filename: "instituciones-#{Time.zone.now.iso8601}.log"
+  # ensure
+  #   logfile.close
 end
