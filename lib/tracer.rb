@@ -9,7 +9,7 @@ module Tracer
                      url: request.url,
                      response_http_code: response.status.to_s,
                      consumer_institution_code: request.headers.fetch('HTTP_REQUESTER_ORGANIZATION_ID', 'INFO NOT SENT'),
-                     oid_identifier: 'OIDOID'
+                     oid_identifier: 'OID'
                      )
   end
 end
