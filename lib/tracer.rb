@@ -1,3 +1,4 @@
+require 'securerandom'
 module Tracer
   def trace(request, response)
     # This could also be a job, since it will delay sending the response to the client
@@ -8,8 +9,8 @@ module Tracer
                      http_method: request.request_method,
                      url: request.url,
                      response_http_code: response.status.to_s,
-                     consumer_institution_code: request.headers.fetch('HTTP_REQUESTER_ORGANIZATION_ID', 'INFO NOT SENT'),
-                     oid_identifier: 'OID'
+                     consumer_institution_code: request.headers.fetch('HTTP_REQUESTER_ORGANIZATION_ID', 'HTTP_REQUESTER_ORGANIZATION_ID NOT SENT'),
+                     oid_identifier: SecureRandom.uuid
                      )
   end
 end

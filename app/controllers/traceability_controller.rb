@@ -48,7 +48,7 @@ class TraceabilityController < ApplicationController
   end
 
   def create_logfile(log_tmpfile, record)
-    line = "[#{record.time}] #{record.remote_host_ip} #{record.interop_service_requested} #{record.http_method} #{record.url} #{record.response_http_code} #{record.consumer_institution_code} #{record.oid_identifier}\n"
+    line = "[#{record.time}] #{record.remote_host_ip} #{record.interop_service_requested} \"#{record.http_method} #{record.url}\" #{record.response_http_code} \"#{record.consumer_institution_code} #{record.oid_identifier}\" \n"
     log_tmpfile.tap { |file| file.write line }.rewind
     log_tmpfile 
   end
